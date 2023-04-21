@@ -1,0 +1,30 @@
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 51px;
+}
+
+button {
+
+    color: #1D6154;
+    background-color: unset;
+    height: 37px;
+    border: 1px solid #1D6154;
+    border-radius: 60px;
+    padding: 10px;
+}
+
+button:hover {
+
+    background-color: #1D6154;
+    color: #FFFFFF;
+
+}
+
+#portfolio {
+
+    display: flex;
+    flex-direction: column;
+
+}

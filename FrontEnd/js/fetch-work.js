@@ -63,13 +63,21 @@ async function workFetch() {
 
     // Créations des boutons de filtrage, application du texte correspondant et positionnement dans la div buttons créée précédemment
     const buttonAll = document.createElement("button");
+    buttonAll.className = "button__filter";
     buttonAll.innerText = "Tous";
+
     const buttonObjects = document.createElement("button");
+    buttonObjects.className = "button__filter";
     buttonObjects.innerText = "Objets";
+
     const buttonAppartments = document.createElement("button");
+    buttonAppartments.className = "button__filter";
     buttonAppartments.innerText = "Appartements";
+
     const buttonHotels = document.createElement("button");
+    buttonHotels.className = "button__filter";
     buttonHotels.innerText = "Hôtels & restaurants";
+
     buttons.appendChild(buttonAll);
     buttons.appendChild(buttonObjects);
     buttons.appendChild(buttonAppartments);
@@ -125,5 +133,63 @@ async function workFetch() {
     buttonHotels.addEventListener("click", filterHotels, false)
 
 }
+
+// Création d'une fonction qui supprime le contenu de main et affiche la page de login
+
+function loginPage() {
+
+    const mainTag = document.getElementsByTagName("main")[0];
+
+    while (mainTag.firstChild) {
+        mainTag.removeChild(mainTag.firstChild)
+    };
+
+    const loginDiv = document.createElement("div");
+    loginDiv.className = "login__container";
+
+    const loginTitle = document.createElement("h1");
+    loginTitle.className = "login__title"
+    loginTitle.innerText = "Log In";
+
+    const labelMail = document.createElement("label")
+    labelMail.className = "label__mail";
+    labelMail.innerText = "E-mail";
+
+    const loginMail = document.createElement("input");
+    loginMail.className = "login__mail";
+    loginMail.type = "email";
+
+    const labelPassword = document.createElement("label");
+    labelPassword.className = "label__password";
+    labelPassword.innerText = "Mot de passe";
+
+    const loginPassword = document.createElement("input");
+    loginPassword.className = "login__password";
+    loginPassword.type = "password";
+
+    const loginButton = document.createElement("button");
+    loginButton.className = "login__button";
+    loginButton.innerText = "Se connecter";
+
+    const loginPassReset = document.createElement("p");
+    loginPassReset.className = "pass__reset"
+    loginPassReset.innerText = "Mot de passe oublié";
+
+
+    mainTag.appendChild(loginDiv);
+    loginDiv.appendChild(loginTitle);
+    loginDiv.appendChild(labelMail);
+    loginDiv.appendChild(loginMail);
+    loginDiv.appendChild(labelPassword);
+    loginDiv.appendChild(loginPassword);
+    loginDiv.appendChild(loginButton);
+    loginDiv.appendChild(loginPassReset);
+
+}
+
+// Crée un lien login dans le menu qui renvoie à la page login
+
+const loginLink = document.getElementsByTagName("li")[2];
+loginLink.addEventListener("click", loginPage, false)
 
 console.log(workFetch());

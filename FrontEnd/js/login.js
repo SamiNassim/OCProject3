@@ -1,5 +1,6 @@
 import { modalDialog } from "./modal.js";
 import { closeArrow } from "./modal.js";
+import { closeArrowAdd } from "./modal.js";
 
 let storedToken = sessionStorage.getItem("storedtoken");
 console.log(storedToken);
@@ -7,66 +8,70 @@ console.log(storedToken);
 if (storedToken) {
     displayAdmin();
 }
-// Fonction qui crée la page de login
+
+// Création de la page de login
+
+const loginDiv = document.createElement("div");
+loginDiv.className = "login__container";
+
+const loginTitle = document.createElement("h1");
+loginTitle.className = "login__title"
+loginTitle.innerText = "Log In";
+
+const loginForm = document.createElement("form");
+loginForm.className = "login__form";
+loginForm.id = "loginForm";
+loginForm.method = "post";
+
+const labelMail = document.createElement("label")
+labelMail.className = "label__mail";
+labelMail.innerText = "E-mail";
+
+const loginMail = document.createElement("input");
+loginMail.className = "login__mail";
+loginMail.id = "loginMail";
+loginMail.type = "email";
+
+const labelPassword = document.createElement("label");
+labelPassword.className = "label__password";
+labelPassword.innerText = "Mot de passe";
+
+const loginPassword = document.createElement("input");
+loginPassword.className = "login__password";
+loginPassword.id = "loginPassword";
+loginPassword.type = "password";
+
+const loginButton = document.createElement("button");
+loginButton.className = "login__button";
+loginButton.innerText = "Se connecter";
+loginButton.addEventListener("click", (event) => {
+    event.preventDefault()
+    login()
+});
+
+const loginPassReset = document.createElement("p");
+loginPassReset.className = "pass__reset"
+loginPassReset.innerText = "Mot de passe oublié";
+
+loginDiv.style.display = "none";
+
+const mainTag = document.getElementsByTagName("main")[0];
+
+mainTag.before(loginDiv);
+loginDiv.appendChild(loginTitle);
+loginDiv.appendChild(loginForm);
+loginForm.appendChild(labelMail);
+loginForm.appendChild(loginMail);
+loginForm.appendChild(labelPassword);
+loginForm.appendChild(loginPassword);
+loginForm.appendChild(loginButton);
+loginDiv.appendChild(loginPassReset);
+
 
 function loginPage() {
 
-    const mainTag = document.getElementsByTagName("main")[0];
-
     mainTag.style.display = "none";
-
-    const loginDiv = document.createElement("div");
-    loginDiv.className = "login__container";
-
-    const loginTitle = document.createElement("h1");
-    loginTitle.className = "login__title"
-    loginTitle.innerText = "Log In";
-
-    const loginForm = document.createElement("form");
-    loginForm.className = "login__form";
-    loginForm.id = "loginForm";
-    loginForm.method = "post";
-
-    const labelMail = document.createElement("label")
-    labelMail.className = "label__mail";
-    labelMail.innerText = "E-mail";
-
-    const loginMail = document.createElement("input");
-    loginMail.className = "login__mail";
-    loginMail.id = "loginMail";
-    loginMail.type = "email";
-
-    const labelPassword = document.createElement("label");
-    labelPassword.className = "label__password";
-    labelPassword.innerText = "Mot de passe";
-
-    const loginPassword = document.createElement("input");
-    loginPassword.className = "login__password";
-    loginPassword.id = "loginPassword";
-    loginPassword.type = "password";
-
-    const loginButton = document.createElement("button");
-    loginButton.className = "login__button";
-    loginButton.innerText = "Se connecter";
-    loginButton.addEventListener("click", (event) => {
-        event.preventDefault()
-        login()
-    });
-
-    const loginPassReset = document.createElement("p");
-    loginPassReset.className = "pass__reset"
-    loginPassReset.innerText = "Mot de passe oublié";
-
-
-    mainTag.before(loginDiv);
-    loginDiv.appendChild(loginTitle);
-    loginDiv.appendChild(loginForm);
-    loginForm.appendChild(labelMail);
-    loginForm.appendChild(loginMail);
-    loginForm.appendChild(labelPassword);
-    loginForm.appendChild(loginPassword);
-    loginForm.appendChild(loginButton);
-    loginDiv.appendChild(loginPassReset);
+    loginDiv.style.display = "flex";
 
 }
 
@@ -169,11 +174,8 @@ function displayAdmin() {
     modifyText.addEventListener("click", () => { modalDialog.showModal() }, false);
 
     closeArrow.addEventListener("click", () => { modalDialog.close() });
-    modalDialog.addEventListener("click", (event) => {
-        if (event.target === modalDiv) {
-            modalDialog.close();
-        }
-    })
+    closeArrowAdd.addEventListener("click", () => { modalDialog.close() });
+
     modalDialog.addEventListener('click', function (e) {
         if (!e.target.closest('div')) {
             e.target.close();

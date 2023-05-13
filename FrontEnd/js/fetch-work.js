@@ -16,16 +16,15 @@ fetch("http://localhost:5678/api/works")
     })
     .catch(err => console.log('Request failed', err));
 
-
-function addDisplayWork(work) {
+export function addDisplayWork(work) {
     const figure = document.createElement("figure");
+    figure.id = "figuregallery" + work.id;
     const figureImage = document.createElement("img");
     figureImage.src = work.imageUrl;
     const figureTitle = document.createElement("figcaption");
     figureTitle.innerText = work.title;
 
     const figureGallery = document.getElementsByClassName("gallery")[0];
-    console.log(figureGallery);
     figure.appendChild(figureImage);
     figure.appendChild(figureTitle);
     figureGallery.appendChild(figure);

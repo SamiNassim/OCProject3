@@ -1,3 +1,4 @@
+import { addDisplayWork } from "./fetch-work.js";
 
 function displayButtonFilters() {
 
@@ -34,7 +35,7 @@ function displayButtonFilters() {
     buttons.appendChild(buttonAppartments);
     buttons.appendChild(buttonHotels);
 
-    // Création des liens des boutons qui feront appel aux fonctions précédemment créée
+    // Création des liens des boutons qui feront appel à la fonction d'affichage de filtre en fonction de l'id de catégorie
 
     buttonAll.addEventListener("click", () => { displayFilter(0) }, false)
     buttonObjects.addEventListener("click", () => { displayFilter(1) }, false)

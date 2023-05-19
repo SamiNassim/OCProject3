@@ -1,14 +1,19 @@
 import { addDisplayWork } from "./fetch-work.js";
 
+// Création des éléments de la modal
+
 export const modalDialog = document.createElement("dialog");
 modalDialog.className = "modal__dialog";
 modalDialog.id = "modaldialog";
 
-export const closeArrow = document.createElement("span");
+const closeArrow = document.createElement("span");
 closeArrow.className = "close";
 closeArrow.innerHTML = "&times;";
 
-export const closeArrowDiv = document.createElement("div");
+const closeDiv = document.createElement("div");
+closeDiv.className = "close__div";
+
+const closeArrowDiv = document.createElement("div");
 closeArrowDiv.className = "close__arrow__div";
 
 export const closeArrowAdd = document.createElement("span");
@@ -73,9 +78,6 @@ const addCategory = document.createElement("select");
 addCategory.className = "add__category";
 addCategory.id = "addcategory";
 
-/* const emptyOption = document.createElement("option");
-emptyOption.value = ""; */
-
 const categoryAddObjects = document.createElement("option");
 categoryAddObjects.innerText = "Objets";
 categoryAddObjects.value = "1";
@@ -92,9 +94,15 @@ const modalLineAdd = document.createElement("hr");
 modalLineAdd.className = "modal__line";
 
 const addButton = document.createElement("button");
-addButton.className = "add__button";
+addButton.className = "add__button__greyed";
 addButton.innerText = "Valider";
 
+window.addEventListener('click', function (e) {
+    const modal = document.getElementById("modaldialog");
+    if (e.target === modal) {
+        document.getElementById("modaldialog").close();
+    }
+});
 
 
 let storedToken = sessionStorage.getItem("storedtoken");
@@ -102,6 +110,7 @@ let storedToken = sessionStorage.getItem("storedtoken");
 if (sessionStorage) {
     createModal();
 }
+
 async function fetchWork() {
     const response = await fetch("http://localhost:5678/api/works");
     let works = await response.json();
@@ -112,6 +121,10 @@ async function fetchWork() {
 
 }
 fetchWork();
+
+closeArrow.addEventListener("click", () => { modalDialog.close() });
+closeArrowAdd.addEventListener("click", () => { modalDialog.close() });
+
 
 function createModal() {
 
@@ -149,6 +162,7 @@ function createModal() {
         closeArrowDiv.style.display = "none";
         closeArrow.style.display = "flex";
         modalDiv.style.display = "flex";
+        resetForm();
     })
 
     const modalDelete = document.createElement("p");
@@ -157,7 +171,8 @@ function createModal() {
 
     bodyTag.appendChild(modalDialog);
     modalDialog.appendChild(modalDiv);
-    modalDialog.prepend(closeArrow);
+    modalDialog.prepend(closeDiv);
+    closeDiv.appendChild(closeArrow);
     modalDiv.appendChild(titleModal);
     modalDiv.appendChild(modalGallery);
     modalDiv.appendChild(modalLine);
@@ -171,18 +186,19 @@ function createModal() {
     closeArrowDiv.appendChild(backArrow);
     closeArrowDiv.appendChild(closeArrowAdd);
     modalDivAdd.appendChild(modalTitleAdd);
-    modalDivAdd.appendChild(modalAddPictureDiv);
     modalAddPictureDiv.appendChild(modalLandscape);
     modalAddPictureDiv.appendChild(modalAddBtn);
     modalAddBtn.appendChild(modalAddFile);
     modalAddPictureDiv.appendChild(modalAddTxt);
     modalDivAdd.appendChild(addPictureForm);
+    addPictureForm.appendChild(modalAddPictureDiv)
     addPictureForm.appendChild(addLabelTitle);
     addPictureForm.appendChild(addTitle);
     addPictureForm.appendChild(addLabelCategory);
     addPictureForm.appendChild(addCategory);
+
     // Ajout des différentes options de catégories
-    /*     addCategory.appendChild(emptyOption); */
+
     addCategory.appendChild(categoryAddObjects);
     addCategory.appendChild(categoryAddAppartments);
     addCategory.appendChild(categoryAddHotels);
@@ -269,8 +285,6 @@ async function addWork(titleName, filePath, categoryValue) {
     document.getElementById("modaldiv").style.display = "flex";
 };
 
-/* addButton.addEventListener("change", (event) => {addButton.className = }) */
-
 addButton.addEventListener("click", () => {
     const titleName = document.getElementById("addtitle").value;
     const filePath = document.getElementById("addfile").files[0];
@@ -280,10 +294,7 @@ addButton.addEventListener("click", () => {
         alert("Veuillez remplir tous les champs.")
     } else {
         addWork(titleName, filePath, categoryValue);
-        document.getElementById("faimageland").style.display = "flex";
-        document.getElementById("modaladdbtn").style.display = "flex";
-        document.getElementById("modaladdtxt").style.display = "flex";
-        document.getElementById("previewdiv").remove();
+        resetForm();
     }
 });
 
@@ -291,6 +302,7 @@ const selectedImg = document.getElementById("addfile");
 const previewImg = document.getElementById("addpicturediv");
 
 selectedImg.addEventListener("change", function () {
+    addButton.className = "add__button";
     getImgData();
 })
 
@@ -310,5 +322,24 @@ function getImgData() {
             previewDiv.innerHTML = '<img src="' + this.result + '" />';
         });
     }
+}
+
+export function resetModal() {
+    modalDivAdd.style.display = "none";
+    closeArrowDiv.style.display = "none";
+
+    const modalDiv = document.getElementById("modaldiv");
+    modalDiv.style.display = "flex";
+    closeArrow.style.display = "flex";
+}
+
+function resetForm() {
+    let addForm = document.getElementById("addpictureform");
+    addForm.reset();
+    document.getElementById("faimageland").style.display = "flex";
+    document.getElementById("modaladdbtn").style.display = "flex";
+    document.getElementById("modaladdtxt").style.display = "flex";
+    document.getElementById("previewdiv").remove();
+    addButton.className = "add__button__greyed";
 }
 

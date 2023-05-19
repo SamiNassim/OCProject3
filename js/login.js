@@ -1,9 +1,9 @@
 import { modalDialog } from "./modal.js";
-import { closeArrow } from "./modal.js";
-import { closeArrowAdd } from "./modal.js";
+import { resetModal } from "./modal.js";
+
+// Verification si le token utilisateur est présent. Si oui, affichage de l'interface de modification
 
 let storedToken = sessionStorage.getItem("storedtoken");
-console.log(storedToken);
 
 if (storedToken) {
     displayAdmin();
@@ -67,6 +67,7 @@ loginForm.appendChild(loginPassword);
 loginForm.appendChild(loginButton);
 loginDiv.appendChild(loginPassReset);
 
+// Fonction qui cache le contenu de la page index pour afficher la page login
 
 function loginPage() {
 
@@ -81,14 +82,14 @@ const loginLink = document.getElementsByTagName("li")[2];
 loginLink.className = "list__link";
 loginLink.addEventListener("click", loginPage, false)
 
+// Fonction qui va assurer la connexion de l'utilisateur
+
 async function login() {
 
 
     let user = {
         email: document.getElementById("loginMail").value,
         password: document.getElementById("loginPassword").value,
-        // email: "sophie.bluel@test.tld",
-        // password: "S0phie"
     };
 
     try {
@@ -152,8 +153,14 @@ function displayAdmin() {
     editPublish.className = "publish__button";
     editPublish.innerText = "publier les changements"
 
-    squarePen.addEventListener("click", () => { modalDialog.showModal() }, false);
-    editText.addEventListener("click", () => { modalDialog.showModal() }, false);
+    squarePen.addEventListener("click", () => {
+        modalDialog.showModal();
+        resetModal();
+    }, false);
+    editText.addEventListener("click", () => {
+        modalDialog.showModal();
+        resetModal();
+    }, false);
 
     const bodyTag = document.getElementsByTagName("body")[0];
 
@@ -170,18 +177,14 @@ function displayAdmin() {
     modifyText.className = "modify__text";
     modifyText.innerText = "modifier";
 
-    modifyIcon.addEventListener("click", () => { modalDialog.showModal() }, false);
-    modifyText.addEventListener("click", () => { modalDialog.showModal() }, false);
-
-    closeArrow.addEventListener("click", () => { modalDialog.close() });
-    closeArrowAdd.addEventListener("click", () => { modalDialog.close() });
-
-    modalDialog.addEventListener('click', function (e) {
-        if (!e.target.closest('div')) {
-            e.target.close();
-        }
-    });
-
+    modifyIcon.addEventListener("click", () => {
+        modalDialog.showModal();
+        resetModal();
+    }, false);
+    modifyText.addEventListener("click", () => {
+        modalDialog.showModal();
+        resetModal();
+    }, false);
 
     const portfolioSection = document.getElementById("portfolio");
     const myProjectsTitle = document.getElementsByTagName("h2")[1];
@@ -191,3 +194,4 @@ function displayAdmin() {
     modifyDiv.appendChild(modifyText);
 
 }
+

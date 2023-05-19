@@ -177,8 +177,6 @@
 
 }
 
-.close__add {}
-
 .modal__dialog::backdrop {
     background: rgba(0, 0, 0, 0.8);
 
@@ -303,10 +301,15 @@
     display: none;
     flex-direction: column;
     align-items: center;
-    padding-left: 150px;
-    padding-right: 150px;
+    padding-left: 100px;
+    padding-right: 100px;
     width: 630px;
     height: 730px;
+}
+
+.close__div {
+    display: flex;
+    justify-content: right;
 }
 
 .close__arrow__div {

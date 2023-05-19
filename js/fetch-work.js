@@ -7,7 +7,6 @@ fetch("http://localhost:5678/api/works")
 
         works.map(function (work) {
 
-
             console.log(work)
             addDisplayWork(work);
 

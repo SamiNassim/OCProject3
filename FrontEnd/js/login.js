@@ -128,6 +128,7 @@ function logoutUser() {
 
 function displayAdmin() {
 
+
     // Masquer la barre des filtres quand l'utilisateur est connecté
 
     const buttonsDiv = document.getElementById("buttons");

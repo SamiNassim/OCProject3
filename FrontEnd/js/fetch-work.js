@@ -1,19 +1,17 @@
-fetch("http://localhost:5678/api/works")
-    .then(response => response.json())
-    .then(works => {
-        console.log(works)
+async function fetchData() {
+    const list = fetch("http://localhost:5678/api/works")
+        .then(response => response.json())
+        .then(works => {
+            console.log(works)
+            return works
 
-        // Récupérer un seul travail contenu  dans un tableau avec plusieurs travaux en le parcourant
-
-        works.map(function (work) {
-
-            console.log(work)
-            addDisplayWork(work);
 
         })
+        .catch(err => console.log('Request failed', err));
 
-    })
-    .catch(err => console.log('Request failed', err));
+    return list;
+}
+
 
 export function addDisplayWork(work) {
     const figure = document.createElement("figure");
@@ -29,6 +27,19 @@ export function addDisplayWork(work) {
     figureGallery.appendChild(figure);
 
 }
+
+async function displayAllWorks() {
+    const works = await fetchData();
+    console.log(works);
+    works.forEach(function (work) {
+
+        console.log(work)
+        addDisplayWork(work);
+
+    })
+}
+
+displayAllWorks();
 
 // Création d'un lien "projets" dans le menu qui renvoie vers la page d'accueil
 

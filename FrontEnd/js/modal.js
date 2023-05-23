@@ -96,6 +96,7 @@ modalLineAdd.className = "modal__line";
 const addButton = document.createElement("button");
 addButton.className = "add__button__greyed";
 addButton.innerText = "Valider";
+addButton.type = "submit";
 
 window.addEventListener('click', function (e) {
     const modal = document.getElementById("modaldialog");
@@ -116,18 +117,18 @@ async function fetchWork() {
     const response = await fetch("http://localhost:5678/api/works");
     let works = await response.json();
 
-    works.map(function (work) {
+    works.forEach(function (work) {
         displayWork(work);
     })
 
 }
-
 
 closeArrow.addEventListener("click", () => { modalDialog.close() });
 closeArrowAdd.addEventListener("click", () => { modalDialog.close() });
 
 
 function createModal() {
+
 
     const bodyTag = document.getElementsByTagName("body")[0];
 
@@ -202,14 +203,15 @@ function createModal() {
     addCategory.appendChild(categoryAddObjects);
     addCategory.appendChild(categoryAddAppartments);
     addCategory.appendChild(categoryAddHotels);
-    modalDivAdd.appendChild(modalLineAdd);
-    modalDivAdd.appendChild(addButton);
+    addPictureForm.appendChild(modalLineAdd);
+    addPictureForm.appendChild(addButton);
 
     const selectedImg = document.getElementById("addfile");
     selectedImg.addEventListener("change", function () {
         addButton.className = "add__button";
         getImgData();
     })
+
 }
 
 function displayWork(work) {
@@ -290,7 +292,9 @@ async function addWork(titleName, filePath, categoryValue) {
     document.getElementById("modaldiv").style.display = "flex";
 };
 
-addButton.addEventListener("click", () => {
+addPictureForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
     const titleName = document.getElementById("addtitle").value;
     const filePath = document.getElementById("addfile").files[0];
     const categoryValue = document.getElementById("addcategory").value;
@@ -304,14 +308,9 @@ addButton.addEventListener("click", () => {
 });
 
 
-
-
-
-
 function getImgData() {
     const selectedImg = document.getElementById("addfile");
     const previewImg = document.getElementById("addpicturediv");
-
     const files = selectedImg.files[0];
     if (files) {
         const fileReader = new FileReader();

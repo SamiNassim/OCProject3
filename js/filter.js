@@ -59,7 +59,7 @@ async function displayFilter(idCategory) {
         figureGallery.removeChild(figureGallery.firstChild)
     };
 
-    works.map(function (work) {
+    works.forEach(function (work) {
         addDisplayWork(work);
     });
 

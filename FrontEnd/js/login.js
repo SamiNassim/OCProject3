@@ -113,6 +113,10 @@ async function login() {
             alert("Nom d'utilisateur ou mot de passe incorrect.")
         }
 
+        if (response.status === 401) {
+            alert("Nom d'utilisateur ou mot de passe incorrect.")
+        }
+
         console.log(response);
     }
     catch (error) {
@@ -127,7 +131,6 @@ function logoutUser() {
 }
 
 function displayAdmin() {
-
 
     // Masquer la barre des filtres quand l'utilisateur est connecté
 

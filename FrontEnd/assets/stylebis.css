@@ -417,6 +417,8 @@
     padding-left: 40px;
     padding-right: 40px;
     margin-bottom: 30px;
+    position: relative;
+    left: 30%;
 
 }
 
@@ -434,4 +436,6 @@
     padding-left: 40px;
     padding-right: 40px;
     margin-bottom: 30px;
+    position: relative;
+    left: 30%;
 }

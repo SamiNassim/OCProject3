@@ -107,27 +107,27 @@ window.addEventListener('click', function (e) {
 
 let storedToken = sessionStorage.getItem("storedtoken");
 
-if (sessionStorage) {
+if (storedToken) {
     createModal();
+    fetchWork();
 }
 
 async function fetchWork() {
     const response = await fetch("http://localhost:5678/api/works");
     let works = await response.json();
 
-    works.map(function (work) {
+    works.forEach(function (work) {
         displayWork(work);
     })
 
 }
-fetchWork();
+
 
 closeArrow.addEventListener("click", () => { modalDialog.close() });
 closeArrowAdd.addEventListener("click", () => { modalDialog.close() });
 
 
 function createModal() {
-
 
     const bodyTag = document.getElementsByTagName("body")[0];
 
@@ -205,6 +205,11 @@ function createModal() {
     modalDivAdd.appendChild(modalLineAdd);
     modalDivAdd.appendChild(addButton);
 
+    const selectedImg = document.getElementById("addfile");
+    selectedImg.addEventListener("change", function () {
+        addButton.className = "add__button";
+        getImgData();
+    })
 }
 
 function displayWork(work) {
@@ -298,15 +303,15 @@ addButton.addEventListener("click", () => {
     }
 });
 
-const selectedImg = document.getElementById("addfile");
-const previewImg = document.getElementById("addpicturediv");
 
-selectedImg.addEventListener("change", function () {
-    addButton.className = "add__button";
-    getImgData();
-})
+
+
+
 
 function getImgData() {
+    const selectedImg = document.getElementById("addfile");
+    const previewImg = document.getElementById("addpicturediv");
+
     const files = selectedImg.files[0];
     if (files) {
         const fileReader = new FileReader();

@@ -122,10 +122,6 @@ async function fetchWork() {
     })
 
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
 
 closeArrow.addEventListener("click", () => { modalDialog.close() });
 closeArrowAdd.addEventListener("click", () => { modalDialog.close() });
@@ -209,11 +205,6 @@ function createModal() {
     addPictureForm.appendChild(modalLineAdd);
     addPictureForm.appendChild(addButton);
 
-    const selectedImg = document.getElementById("addfile");
-    selectedImg.addEventListener("change", function () {
-        addButton.className = "add__button";
-        getImgData();
-    })
 
     const selectedImg = document.getElementById("addfile");
     selectedImg.addEventListener("change", function () {
@@ -315,21 +306,15 @@ addPictureForm.addEventListener("submit", (e) => {
     }
 });
 
-<<<<<<< HEAD
 
 
 
 
-=======
->>>>>>> dev
 
 function getImgData() {
     const selectedImg = document.getElementById("addfile");
     const previewImg = document.getElementById("addpicturediv");
-<<<<<<< HEAD
 
-=======
->>>>>>> dev
     const files = selectedImg.files[0];
     if (files) {
         const fileReader = new FileReader();
